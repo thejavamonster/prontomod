@@ -7,7 +7,7 @@ import re
 
 accesstoken = "" #ENTER YOUR PRONTO ACCESS TOKEN HERE
 api_base_url = "https://stanfordohs.pronto.io/"
-user_id = "" #ENTER YOUR USER ID HERE
+user_id = "0000000" 
 bubbleID = "" #ENTER THE GROUP ID HERE!
 
 
