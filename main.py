@@ -5,10 +5,10 @@ import time
 import json
 import re
 
-accesstoken = "ET8DUU4e3PCeUNtfDHd8wmcZZOM4s6dDWA3aAN6M.1323771141"
+accesstoken = ""
 api_base_url = "https://stanfordohs.pronto.io/"
-user_id = "6056675"
-bubbleID = "3832006"
+user_id = ""
+bubbleID = ""
 
 headers = {
     "Content-Type": "application/json",
