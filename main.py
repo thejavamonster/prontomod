@@ -16,7 +16,6 @@ int_user_id =
 
 BUBBLE_IDS = [
    
-    
 ]
 
 main_bubble_ID = ""
@@ -140,11 +139,11 @@ async def connect_and_listen(bubble_id, bubble_sid):
                 }
                 await websocket.send(json.dumps(data))
                 
-                
+                # Initialize message storage for this bubble
                 if bubble_id not in stored_messages:
                     stored_messages[bubble_id] = []
 
-            
+            # Listen for incoming messages
             async for message in websocket:
                 if message == "ping":
                     await websocket.send("pong")
@@ -157,10 +156,11 @@ async def connect_and_listen(bubble_id, bubble_sid):
                         msg_user = msg_content.get("message", {}).get("user", {})
                         user_firstname = msg_user.get("firstname", "Unknown")
                         user_lastname = msg_user.get("lastname", "User")
+                        sender_user_id = msg_user.get("id", "Unknown")
                         timestamp = msg_content.get("message", {}).get("created_at", "Unknown timestamp")
                         msg_media = msg_content.get("message", {}).get("messagemedia", [])
 
-                        process_message(msg_text, user_firstname, user_lastname, timestamp, msg_media, bubble_id)
+                        process_message(msg_text, user_firstname, user_lastname, timestamp, msg_media, bubble_id, sender_user_id)
     except Exception as e:
         chat_name = get_chat_name(bubble_id)
         print(f"Error in {chat_name}: {e}")
@@ -188,10 +188,10 @@ async def main():
         print("No valid bubbles to monitor")
 
 # Mod Bot Logic for Processing Messages
-def process_message(msg_text, user_firstname, user_lastname, timestamp, msg_media, bubble_id):
+def process_message(msg_text, user_firstname, user_lastname, timestamp, msg_media, bubble_id, sender_user_id):
     msg_text_lower = msg_text.lower()
     msg_id = str(uuid.uuid4())  # Simulate unique message ID
-    sent_user_id = user_id  # This would be the actual user ID for the message sender
+    sent_user_id = sender_user_id  # Use the actual sender's user ID
 
     count = 0
     # Bad Word Check
